@@ -1,6 +1,6 @@
-import First from "./components/Page/Pages/FirstPage";
-import Second from "./components/Page/Pages/SecondPage";
-import Third from "./components/Page/Pages/ThirdPage";
+import FirstPage from "./components/Page/Pages/FirstPage";
+import SecondPage from "./components/Page/Pages/SecondPage";
+import ThirdPage from "./components/Page/Pages/ThirdPage";
 import styled from "@emotion/styled";
 import { Breadcrumb, Header, BackButton } from "./components/Header";
 import { usePageList } from "./provider/pageListProvider.tsx";
@@ -8,7 +8,22 @@ import { usePageList } from "./provider/pageListProvider.tsx";
 const PageView = styled.div`
   height: 100%;
   background-color: white;
+  position: relative;
+`;
+
+const PageWrapper = styled.div`
   display: flex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+
+  &:last-child {
+    opacity: 1;
+  }
 `;
 
 const BreadcrumbContainer = styled.div`
@@ -18,21 +33,7 @@ const BreadcrumbContainer = styled.div`
 `;
 
 function App() {
-  const { pageList, pushPage, popPage } = usePageList();
-
-  let currentPage = null;
-
-  switch (pageList[pageList.length - 1]) {
-    case "first":
-      currentPage = <First onClick={(page) => pushPage(page)} />;
-      break;
-    case "second":
-      currentPage = <Second onClick={(page) => pushPage(page)} />;
-      break;
-    case "third":
-      currentPage = <Third onClick={(page) => pushPage(page)} />;
-      break;
-  }
+  const { pageList, popPage } = usePageList();
 
   return (
     <>
@@ -44,7 +45,15 @@ function App() {
           <Breadcrumb />
         </BreadcrumbContainer>
       </Header>
-      <PageView>{currentPage}</PageView>
+      <PageView>
+        {pageList.map((page, index) => (
+          <PageWrapper key={`page-${index}`} style={{ zIndex: index }}>
+            {page === "first" && <FirstPage />}
+            {page === "second" && <SecondPage />}
+            {page === "third" && <ThirdPage />}
+          </PageWrapper>
+        ))}
+      </PageView>
     </>
   );
 }

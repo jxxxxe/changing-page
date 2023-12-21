@@ -22,7 +22,7 @@ export const Breadcrumb = () => {
             <BreadcrumbArrow />
             <BreadcrumbButton
               onClick={() => popPage(basedIndex + idx + 1)}
-              key={basedIndex + idx}
+              key={idx}
             >
               {page}
             </BreadcrumbButton>
