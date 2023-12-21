@@ -14,15 +14,15 @@ const PageView = styled.div`
 const PageWrapper = styled.div`
   display: flex;
   position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-
+  width: 100%;
+  height: 100%;
+  transform: rotateX(90deg);
+  transition: transform 1s ease;
+  
   &:last-child {
-    opacity: 1;
+    animation-duration: 1s;
+    animation-name: "move";
+    transform: rotateX(0deg);
   }
 `;
 
@@ -47,7 +47,7 @@ function App() {
       </Header>
       <PageView>
         {pageList.map((page, index) => (
-          <PageWrapper key={`page-${index}`} style={{ zIndex: index }}>
+          <PageWrapper key={`page-${index}`}>
             {page === "first" && <FirstPage />}
             {page === "second" && <SecondPage />}
             {page === "third" && <ThirdPage />}
