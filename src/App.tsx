@@ -18,7 +18,7 @@ const PageWrapper = styled.div`
   height: 100%;
   transform: rotateX(90deg);
   transition: transform 1s ease;
-  
+
   &:last-child {
     animation-duration: 1s;
     animation-name: "move";
@@ -39,7 +39,7 @@ function App() {
     <>
       <Header>
         {pageList.length > 1 && (
-          <BackButton onClick={() => popPage()}>Back</BackButton>
+          <BackButton onClick={() => popPage()}>뒤로가기</BackButton>
         )}
         <BreadcrumbContainer>
           <Breadcrumb />
