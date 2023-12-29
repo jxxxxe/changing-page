@@ -1,0 +1,9 @@
+mergeable:
+  - when: pull_request.*, pull_request_review.*
+    name: "Require approvals"
+    validate:
+      - do: approvals
+        min:
+          count: 1
+        limit:
+          users: ["jxxxxe"]
